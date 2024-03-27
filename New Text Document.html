@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text to Google Sheets</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Enter Text to Save to Google Sheets</h1>
+    <input type="text" id="textInput" placeholder="Enter text...">
+    <button onclick="sendToGoogleSheets()">Send to Google Sheets</button>
+  </div>
+  <script>
+    function sendToGoogleSheets() {
+      var textInput = document.getElementById("textInput").value;
+      
+      // Send the text to Google Sheets
+      fetch('https://script.google.com/macros/s/AKfycbxv9a2Fakj_YuLK-IJPFqJOeVPSPMgiWwWc8KCQBAx46U0HWCIn7rMSk9dvLNTCILRN/exec', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ text: textInput })
+      })
+      .then(response => {
+        if (response.ok) {
+          alert('Text sent to Google Sheets successfully!');
+        } else {
+          alert('Failed to send text to Google Sheets.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while sending text to Google Sheets.');
+      });
+    }
+  </script>
+</body>
+</html>
